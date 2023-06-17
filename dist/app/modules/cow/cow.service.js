@@ -25,6 +25,8 @@ const createCowService = (cowData) => __awaiter(void 0, void 0, void 0, function
     const result = yield cow_model_1.Cow.create(cowData);
     return result;
 });
+const getAllCowsService = () => __awaiter(void 0, void 0, void 0, function* () { });
 exports.CowService = {
     createCowService,
+    getAllCowsService,
 };

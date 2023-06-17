@@ -17,6 +17,18 @@ const createCow = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getAllCows = catchAsync(async (req: Request, res: Response) => {
+  const result = await CowService.getAllCowsService();
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Cow created successfully.",
+    data: result,
+  });
+});
+
 export const CowController = {
   createCow,
+  getAllCows,
 };

@@ -17,6 +17,9 @@ const createCowService = async (cowData: ICow): Promise<ICow> => {
   return result;
 };
 
+const getAllCowsService = async () => {};
+
 export const CowService = {
   createCowService,
+  getAllCowsService,
 };
