@@ -11,4 +11,7 @@ const cow_validation_1 = require("./cow.validation");
 const router = express_1.default.Router();
 router.post("/", (0, validateRequest_1.default)(cow_validation_1.CowValidation.createCowZodSchema), cow_controller_1.CowController.createCow);
 router.get("/", cow_controller_1.CowController.getAllCows);
+router.get("/:id", cow_controller_1.CowController.getSingleCow);
+router.patch("/:id", cow_controller_1.CowController.updateCow);
+router.delete("/:id", cow_controller_1.CowController.deleteCow);
 exports.CowRoutes = router;

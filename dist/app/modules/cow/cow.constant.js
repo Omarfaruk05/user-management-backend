@@ -1,24 +1,26 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.category = exports.label = exports.breed = exports.location = void 0;
+exports.cowFilterableFields = exports.cowSearchableFields = exports.category = exports.label = exports.breed = exports.location = void 0;
 exports.location = [
+    "Chattogram",
     "Dhaka",
-    " Chattogram",
     "Barishal",
-    "  Rajshahi",
-    "  Sylhet",
-    "  Comilla",
-    "   Rangpur",
-    "  Mymensingh",
+    "Rajshahi",
+    "Sylhet",
+    "Comilla",
+    "Rangpur",
+    "Mymensingh",
 ];
 exports.breed = [
     "Brahman",
     "Nellore",
     "Sahiwal",
-    "  Gir",
+    "Gir",
     "Indigenous",
     "Tharparkar",
-    " Kankrej",
+    "Kankrej",
 ];
 exports.label = ["for sale", "sold out"];
 exports.category = ["Dairy", "Beef", "DualPurpose"];
+exports.cowSearchableFields = ["loaction", "breed", "category"];
+exports.cowFilterableFields = ["searchTerm", "minPrice", "maxPrice"];

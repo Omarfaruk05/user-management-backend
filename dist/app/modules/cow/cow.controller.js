@@ -28,6 +28,10 @@ const catchAsync_1 = __importDefault(require("../../../shared/catchAsync"));
 const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const http_status_1 = __importDefault(require("http-status"));
 const cow_service_1 = require("./cow.service");
+const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
+const cow_constant_1 = require("./cow.constant");
+const pic_1 = __importDefault(require("../../../shared/pic"));
+const paginationConstants_1 = require("../../constants/paginationConstants");
 const createCow = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const cowData = __rest(req.body, []);
     const result = yield cow_service_1.CowService.createCowService(cowData);
@@ -39,15 +43,55 @@ const createCow = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
     });
 }));
 const getAllCows = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield cow_service_1.CowService.getAllCowsService();
+    const filters = (0, pic_1.default)(req.query, cow_constant_1.cowFilterableFields);
+    const paginationOptions = (0, pic_1.default)(req.query, paginationConstants_1.paginationFields);
+    const result = yield cow_service_1.CowService.getAllCowsService(filters, paginationOptions);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,
         success: true,
-        message: "Cow created successfully.",
+        message: "Cows received successfully.",
+        meta: result.meta,
+        data: result.data,
+    });
+}));
+const getSingleCow = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield cow_service_1.CowService.getSingleCowService(id);
+    if (!result) {
+        throw new ApiError_1.default(http_status_1.default.OK, "No cow found with this id");
+    }
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Cow received successfully.",
+        data: result,
+    });
+}));
+const updateCow = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const updatedData = req.body;
+    const result = yield cow_service_1.CowService.updateCowService(id, updatedData);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Cow updated successfully.",
+        data: result,
+    });
+}));
+const deleteCow = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { id } = req.params;
+    const result = yield cow_service_1.CowService.deleteCowService(id);
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Cow deleted successfully.",
         data: result,
     });
 }));
 exports.CowController = {
     createCow,
     getAllCows,
+    getSingleCow,
+    updateCow,
+    deleteCow,
 };
