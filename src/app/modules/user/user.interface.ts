@@ -7,7 +7,7 @@ export type UserName = {
 
 export type IUser = {
   phoneNumber: string;
-  role: string;
+  role: "seller" | "buyer";
   password: string;
   name: UserName;
   address: string;

@@ -13,8 +13,8 @@ const handleZodError = (error: ZodError): IGenericErrorResponse => {
   const statusCode = httpStatus.BAD_REQUEST;
   return {
     statusCode,
-    message: "Validation Error.",
-    errorMessage: errors,
+    message: "Validation Error",
+    errorMessages: errors,
   };
 };
 

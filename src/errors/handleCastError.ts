@@ -14,7 +14,7 @@ const handleCastError = (error: mongoose.Error.CastError) => {
   return {
     statusCode,
     message: "Case Error",
-    errorMessage: errors,
+    errorMessages: errors,
   };
 };
 
