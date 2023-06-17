@@ -12,30 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthService = void 0;
+exports.CowService = void 0;
 const http_status_1 = __importDefault(require("http-status"));
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
 const user_model_1 = require("../user/user.model");
-const createUserService = (payload) => __awaiter(void 0, void 0, void 0, function* () {
-    if (payload.role === "buyer") {
-        payload.income = 0;
-        if (!payload.budget) {
-            throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "As a buyer you have to budget.");
-        }
+const cow_model_1 = require("./cow.model");
+const createCowService = (cowData) => __awaiter(void 0, void 0, void 0, function* () {
+    const isExist = yield user_model_1.User.findById(cowData.seller);
+    if (!isExist) {
+        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Please give me seller id as seller.");
     }
-    if (payload.role === "seller") {
-        payload.budget = 0;
-        if (!payload.income) {
-            payload.income = 0;
-        }
-    }
-    const isExist = yield user_model_1.User.findOne({ phoneNumber: payload.phoneNumber });
-    if (isExist) {
-        throw new ApiError_1.default(http_status_1.default.BAD_REQUEST, "Your phone number is already used.");
-    }
-    const result = yield user_model_1.User.create(payload);
+    const result = yield cow_model_1.Cow.create(cowData);
     return result;
 });
-exports.AuthService = {
-    createUserService,
+exports.CowService = {
+    createCowService,
 };
