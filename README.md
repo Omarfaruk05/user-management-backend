@@ -37,7 +37,7 @@ s
 
 # Api endpoints for cows filtering
 
-[https://digital-cow-hut-umber.vercel.app/api/v1/cows?pag=1&limit=10]
+[https://digital-cow-hut-umber.vercel.app/api/v1/cows?page=1&limit=10]
 
 [https://digital-cow-hut-umber.vercel.app/api/v1/cows?sortBy=price&sortOrder=asc]
 
