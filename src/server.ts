@@ -15,17 +15,6 @@ async function bootstrap() {
   } catch (error) {
     console.log("Fail to connect database", error);
   }
-
-  process.on("unhandledRejection", (error) => {
-    if (server) {
-      server.close(() => {
-        console.log(error);
-        process.exit(1);
-      });
-    } else {
-      process.exit(1);
-    }
-  });
 }
 
 bootstrap();
