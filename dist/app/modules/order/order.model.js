@@ -13,5 +13,10 @@ const orderSchema = new mongoose_1.Schema({
         ref: "User",
         required: true,
     },
+}, {
+    timestamps: true,
+    toJSON: {
+        virtuals: true,
+    },
 });
 exports.Order = (0, mongoose_1.model)("Order", orderSchema);

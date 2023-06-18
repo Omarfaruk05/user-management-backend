@@ -22,7 +22,7 @@ exports.breed = [
 ];
 exports.label = ["for sale", "sold out"];
 exports.category = ["Dairy", "Beef", "DualPurpose"];
-exports.cowSearchableFields = ["name", "category", "location"];
+exports.cowSearchableFields = ["name", "category", "location", "breed"];
 exports.cowFilterableFields = [
     "searchTerm",
     "location",
