@@ -15,9 +15,7 @@ const createUserService = async (payload: IUser): Promise<IUser> => {
   }
   if (payload.role === "seller") {
     payload.budget = 0;
-    if (!payload.income) {
-      payload.income = 0;
-    }
+    payload.income = 0;
   }
   const isExist = await User.findOne({ phoneNumber: payload.phoneNumber });
   if (isExist) {

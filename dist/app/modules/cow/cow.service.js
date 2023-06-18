@@ -51,8 +51,20 @@ const getAllCowsService = (filters, paginationOptions) => __awaiter(void 0, void
             })),
         });
     }
-    if (minPrice) {
-        andConditions.push({ $gt: { $price: Number(minPrice) } }, { $lt: { $price: Number(maxPrice) } });
+    if (minPrice && !maxPrice) {
+        andConditions.push({
+            $and: [{ price: { $gte: Number(minPrice) } }],
+        });
+    }
+    if (!minPrice && maxPrice) {
+        andConditions.push({
+            $and: [{ price: { $lte: Number(maxPrice) } }],
+        });
+    }
+    if (minPrice && maxPrice) {
+        andConditions.push({
+            $and: [{ price: { $gte: Number(minPrice), $lte: Number(maxPrice) } }],
+        });
     }
     if (Object.keys(filtersData).length) {
         andConditions.push({
@@ -67,7 +79,6 @@ const getAllCowsService = (filters, paginationOptions) => __awaiter(void 0, void
         sortConditions[sortBy] = sortOrder;
     }
     const whereConditions = andConditions.length > 0 ? { $and: andConditions } : {};
-    console.log(whereConditions);
     const total = yield cow_model_1.Cow.countDocuments();
     const result = yield cow_model_1.Cow.find(whereConditions)
         .sort(sortConditions)

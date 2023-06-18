@@ -25,9 +25,7 @@ const createUserService = (payload) => __awaiter(void 0, void 0, void 0, functio
     }
     if (payload.role === "seller") {
         payload.budget = 0;
-        if (!payload.income) {
-            payload.income = 0;
-        }
+        payload.income = 0;
     }
     const isExist = yield user_model_1.User.findOne({ phoneNumber: payload.phoneNumber });
     if (isExist) {
