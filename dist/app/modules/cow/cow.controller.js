@@ -29,9 +29,9 @@ const sendResponse_1 = __importDefault(require("../../../shared/sendResponse"));
 const http_status_1 = __importDefault(require("http-status"));
 const cow_service_1 = require("./cow.service");
 const ApiError_1 = __importDefault(require("../../../errors/ApiError"));
-const cow_constant_1 = require("./cow.constant");
 const pic_1 = __importDefault(require("../../../shared/pic"));
 const paginationConstants_1 = require("../../constants/paginationConstants");
+const cow_constant_1 = require("./cow.constant");
 const createCow = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const cowData = __rest(req.body, []);
     const result = yield cow_service_1.CowService.createCowService(cowData);
@@ -43,8 +43,10 @@ const createCow = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
     });
 }));
 const getAllCows = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log(cow_constant_1.cowFilterableFields);
     const filters = (0, pic_1.default)(req.query, cow_constant_1.cowFilterableFields);
     const paginationOptions = (0, pic_1.default)(req.query, paginationConstants_1.paginationFields);
+    console.log(filters, paginationOptions);
     const result = yield cow_service_1.CowService.getAllCowsService(filters, paginationOptions);
     (0, sendResponse_1.default)(res, {
         statusCode: http_status_1.default.OK,

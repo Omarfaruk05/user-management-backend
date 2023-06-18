@@ -4,10 +4,10 @@ import sendResponse from "../../../shared/sendResponse";
 import httpStatus from "http-status";
 import { CowService } from "./cow.service";
 import ApiError from "../../../errors/ApiError";
-import { cowFilterableFields } from "./cow.constant";
 import pick from "../../../shared/pic";
 import { paginationFields } from "../../constants/paginationConstants";
 import { ICow } from "./cow.interface";
+import { cowFilterableFields } from "./cow.constant";
 
 const createCow = catchAsync(async (req: Request, res: Response) => {
   const { ...cowData } = req.body;

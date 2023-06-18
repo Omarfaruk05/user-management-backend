@@ -26,7 +26,7 @@ const getAllCowsService = async (
   filters: ICowFilters,
   paginationOptions: IPaginationOptions
 ): Promise<IGenericResponse<ICow[]>> => {
-  const { searchTerm, ...filtersData } = filters;
+  const { searchTerm, minPrice, maxPrice, ...filtersData } = filters;
 
   const andConditions = [];
 
@@ -39,6 +39,12 @@ const getAllCowsService = async (
         },
       })),
     });
+  }
+  if (minPrice) {
+    andConditions.push(
+      { $gt: { $price: Number(minPrice) } },
+      { $lt: { $price: Number(maxPrice) } }
+    );
   }
   if (Object.keys(filtersData).length) {
     andConditions.push({
@@ -58,6 +64,8 @@ const getAllCowsService = async (
 
   const whereConditions =
     andConditions.length > 0 ? { $and: andConditions } : {};
+
+  console.log(whereConditions);
 
   const total = await Cow.countDocuments();
   const result = await Cow.find(whereConditions)

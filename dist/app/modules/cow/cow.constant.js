@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.cowFilterableFields = exports.cowSearchableFields = exports.category = exports.label = exports.breed = exports.location = void 0;
+exports.cowSearchableFields = exports.cowFilterableFields = exports.category = exports.label = exports.breed = exports.location = void 0;
 exports.location = [
     "Chattogram",
     "Dhaka",
@@ -22,5 +22,5 @@ exports.breed = [
 ];
 exports.label = ["for sale", "sold out"];
 exports.category = ["Dairy", "Beef", "DualPurpose"];
-exports.cowSearchableFields = ["loaction", "breed", "category"];
-exports.cowFilterableFields = ["searchTerm", "minPrice", "maxPrice"];
+exports.cowFilterableFields = ["loaction", "breed", "category"];
+exports.cowSearchableFields = ["searchTerm", "minPrice", "maxPrice"];
