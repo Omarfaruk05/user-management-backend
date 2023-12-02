@@ -36,6 +36,21 @@ const globalErrorHandler: ErrorRequestHandler = (
     statusCode = simplifiedError.statusCode;
     message = simplifiedError.message;
     errorMessages = simplifiedError.errorMessages;
+  } else if (
+    error.code === 11000 &&
+    error.keyPattern &&
+    error.keyPattern.email
+  ) {
+    message = "Email is already used";
+    errorMessages.push({
+      path: "email",
+      message: "Email is already used",
+    });
+  } else if (error instanceof ZodError) {
+    const simplifiedError = handleZodError(error);
+    statusCode = simplifiedError.statusCode;
+    message = simplifiedError.message;
+    errorMessages = simplifiedError.errorMessages;
   } else if (error?.name === "CastError") {
     const simplifiedError = handleCastError(error);
     statusCode = simplifiedError.statusCode;

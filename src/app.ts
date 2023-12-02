@@ -10,10 +10,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Wellcome to Cow Hut");
+  res.send("Wellcome to User Management");
 });
 
-app.use("/api/v1/", routes);
+app.use("/api/", routes);
 
 app.use(globalErrorHandler);
 app.use(async (req: Request, res: Response, next: NextFunction) => {

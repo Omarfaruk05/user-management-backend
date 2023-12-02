@@ -5,15 +5,33 @@ import { IUser } from "./user.interface";
 import httpStatus from "http-status";
 import { UserService } from "./user.service";
 import ApiError from "../../../errors/ApiError";
+import pick from "../../../shared/pic";
+import { paginationFields } from "../../constants/paginationConstants";
+import { UserFilterableFields } from "./user.constant";
 
-const getAllUsers = catchAsync(async (req: Request, res: Response) => {
-  const result = await UserService.getAllUserService();
+const createUser = catchAsync(async (req: Request, res: Response) => {
+  const user = req.body;
+  const result = await UserService.createUser(user);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "All Users received successfully.",
+    message: "User created successfully.",
     data: result,
+  });
+});
+
+const getAllUsers = catchAsync(async (req: Request, res: Response) => {
+  const filters = pick(req.query, UserFilterableFields);
+  const options = pick(req.query, paginationFields);
+  const result = await UserService.getAllUserService(filters, options);
+
+  sendResponse<IUser[]>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "All Users received successfully.",
+    meta: result?.meta,
+    data: result?.data,
   });
 });
 
@@ -59,6 +77,7 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const UserController = {
+  createUser,
   getAllUsers,
   getSingleUser,
   updateUser,
