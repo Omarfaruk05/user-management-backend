@@ -8,7 +8,6 @@ const teamSchema = new Schema<ITeam, TeamModel>({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      unique: true,
     },
   ],
 });

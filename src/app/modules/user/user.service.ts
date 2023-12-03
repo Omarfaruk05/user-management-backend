@@ -20,6 +20,7 @@ const getAllUserService = async (
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
   const { searchTerm, ...filtersData } = filters;
+  console.log(filtersData);
 
   const andConditions: any[] = [];
 
