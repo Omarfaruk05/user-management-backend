@@ -11,5 +11,6 @@ const teamSchema = new Schema<ITeam, TeamModel>({
     },
   ],
 });
+teamSchema.index({ users: 1 }, { unique: false });
 
 export const Team = model<ITeam, TeamModel>("Team", teamSchema);
