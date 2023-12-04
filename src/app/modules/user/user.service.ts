@@ -19,26 +19,30 @@ const getAllUserService = async (
 ): Promise<IGenericResponse<IUser[]>> => {
   const { page, limit, skip, sortBy, sortOrder } =
     paginationHelpers.calculatePagination(paginationOptions);
-  const { searchTerm, ...filtersData } = filters;
-  console.log(filtersData);
+
+  const { searchTerm, ...filtersData }: any = filters;
+
+  const searchTermsArray = searchTerm ? searchTerm.split(" ") : [];
+
+  const conditions = searchTermsArray.map((word: string) => ({
+    name: new RegExp(word, "i"),
+  }));
 
   const andConditions: any[] = [];
 
   if (searchTerm) {
-    andConditions.push({
-      $or: userSearchableFields.map((field) => ({
-        [field]: {
-          $regex: searchTerm,
-          $options: "i",
-        },
-      })),
-    });
+    const orConditions = userSearchableFields.map((field) => ({
+      [field]: {
+        $regex: new RegExp(searchTermsArray.join("|"), "i"),
+      },
+    }));
+    andConditions.push({ $or: orConditions });
   }
 
   if (Object.keys(filtersData).length > 0) {
     andConditions.push({
-      $and: Object.keys(filtersData).map((key) => ({
-        [key]: (filtersData as any)[key],
+      $and: Object.entries(filtersData).map(([key, value]) => ({
+        [key]: value,
       })),
     });
   }
